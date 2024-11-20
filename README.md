@@ -1,22 +1,23 @@
-# CDE-CAPSTONE: Building a Data Platform for Travel Agency
+# CDE-CAPSTONE: Data Platform for Travel Agency
 
 ## Project Overview
-This project aims to construct a robust data platform to process and store data from a Country REST API, enabling predictive analytics for a travel agency. The platform leverages cloud infrastructure, data engineering tools, and machine learning techniques to deliver valuable insights.
+This project aims to develop a robust data platform to process and store data from a Country REST API, enabling predictive analytics for a travel agency. The platform will leverage cloud infrastructure, data engineering tools, and machine learning techniques to deliver valuable insights.
 
 ## Data Architecture
-The data architecture comprises the following layers:
-
-1. **Raw Data Layer:**
+**Data Flow:**
+1. **Data Extraction:**
    - **Source:** Country REST API
-   - **Storage:** Cloud Object Storage (e.g., AWS S3, GCP Storage) in Parquet format
+   - **Target:** Cloud Object Storage (e.g., AWS S3) in Parquet format
+2. **Data Transformation:**
+   - **Source:** Cloud Object Storage
+   - **Target:** Cloud Data Warehouse (e.g., Snowflake)
+3. **Data Modeling:**
+   - **Source:** Cloud Data Warehouse
+   - **Target:** DBT-modeled fact and dimension tables
 
-2. **Data Warehouse Layer:**
-   - **Storage:** Cloud Data Warehouse (e.g., Snowflake, BigQuery)
-   - **Modeling:** DBT for data modeling into fact and dimension tables
-
-## Technology Stack
-* **Cloud Infrastructure:** AWS, GCP, or Azure
-* **Data Engineering:** Apache Airflow, Python (Pandas, PySpark)
+**Technology Stack:**
+* **Cloud Infrastructure:** AWS
+* **Data Engineering:** Apache Airflow, Python (Pandas)
 * **Data Storage:** Cloud Object Storage, Cloud Data Warehouse
 * **CI/CD:** GitHub Actions
 * **Infrastructure as Code:** Terraform
@@ -25,37 +26,17 @@ The data architecture comprises the following layers:
 
 ## Workflow
 1. **Data Extraction:**
-   - Utilize Apache Airflow to schedule the extraction of data from the Country REST API.
+   - Schedule API calls using Apache Airflow.
    - Extract the entire raw data and store it in Parquet format on Cloud Object Storage.
-
 2. **Data Transformation:**
-   - Employ PySpark or Pandas to transform the raw data into the required format.
-   - Extract the necessary attributes (country name, independence, UN membership, startOfWeek, official country name, common native name, currency code, currency name, currency symbol, country code, capital, region, subregion, languages, area, population, continents).
-
+   - Use PySpark or Pandas to transform the raw data into a suitable format for the data warehouse.
+   - Extract relevant attributes (country name, independence, UN membership, etc.).
 3. **Data Loading:**
-   - Leverage Apache Airflow to orchestrate the loading of the transformed data into the Cloud Data Warehouse.
-   - Utilize DBT to model the data into fact and dimension tables.
+   - Orchestrate the loading process using Apache Airflow.
+   - Load the transformed data into the Cloud Data Warehouse.
+4. **Data Modeling:**
+   - Utilize DBT to create a dimensional data model, defining fact and dimension tables.
+5. **CI/CD Pipeline:**
+   - Use GitHub Actions to automate the build, test, and deployment process.
+   - Package the data pipeline code into a Docker image and push it to a container registry.
 
-4. **CI/CD:**
-   - Employ GitHub Actions to automate the building, testing, and deployment of the data pipeline.
-   - Package the data extraction and loading code into a Docker image and push it to a container registry.
-
-## Additional Considerations
-* **Data Quality:** Implement data quality checks to ensure data accuracy and completeness.
-* **Security:** Implement appropriate security measures to protect sensitive data.
-* **Performance Optimization:** Optimize the data pipeline for performance and scalability.
-* **Error Handling:** Implement robust error handling and logging mechanisms.
-* **Monitoring:** Monitor the data pipeline to identify and resolve issues.
-
-## Bonus
-* **Data Insights:** Explore the dataset to uncover interesting insights, such as:
-   - Identify countries with similar characteristics.
-   - Analyze the distribution of languages across different regions.
-   - Predict potential tourist destinations based on user preferences.
-
-## Submission Requirements
-* **Presentation:** Create a presentation to explain the project architecture, technology stack, and key insights.
-* **README:** Write a clear and concise README file to document the project.
-* **GitHub Repository:** Commit all project code, configuration files, and documentation to a GitHub repository.
-
-By adhering to these guidelines, we can construct a robust and scalable data platform to support the travel agency's data-driven decision-making.
